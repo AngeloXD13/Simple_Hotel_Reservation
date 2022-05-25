@@ -8,6 +8,14 @@ config = {
   'database': '',
   'raise_on_warnings': True
 }
+
+config2 = {
+  'user': 'root',
+  'password': '',
+  'host': '127.0.0.1',
+  'database': 'HOTEL_RESERVATION',
+  'raise_on_warnings': True
+}
 print("dsdsd")
 class DatabaseManagerMYSQLClass():
     def __init__(self):
@@ -53,11 +61,12 @@ def createTable(self):
 
     sql_1 = ("CREATE TABLE IF NOT EXISTS `hotel_reservation`.`customer` ("
              " `CustomerID` INT NOT NULL AUTO_INCREMENT ,"
-             " `FullName` TEXT NOT NULL DEFAULT '' ,"
-             " `PhoneNumber` INT(11) NOT NULL,"
-             " `Address` TEXT NOT NULL ,"
+             " `FullName` TEXT ,"
+             " `PhoneNumber` BIGINT(11) NOT NULL,"
+             " `Address` TEXT ,"
              " `Password` TEXT NOT NULL DEFAULT '' ,"
-             " `Status` TEXT NOT NULL , `Remarks` TEXT ,"
+             " `Status` TEXT ,"
+             " `Remarks` TEXT ,"
              " `GuestCount` INT DEFAULT '0' ,"
              " PRIMARY KEY (`CustomerID`),"
              " UNIQUE (`PhoneNumber`)"
@@ -133,6 +142,70 @@ def createTable(self):
 
     self.conn.close()
 
+def getDataPhoneNumberIfExist(phoneNumber):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql = ("SELECT * FROM CUSTOMER WHERE PHONENUMBER = '" + phoneNumber + "';")
+    print(sql)
+    c.execute(sql)
+
+    items = None
+    items = c.fetchone()
+    if items == None:
+        print("no ITEMS DETECTED")
+        return None
+    else:
+        from AccountDATA import Account
+        customer_account = None
+        customer_account = Account
+        print(items)
+
+        customer_account.customerID = str(items[0])
+        customer_account.customerPhoneNumber = items[1]
+        customer_account.customerFullName = items[2]
+        customer_account.customerAddress = items[3]
+
+        return customer_account
+
+def checkPhoneNumberisRegistered(phoneNumber):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql = ("SELECT CUSTOMERID FROM CUSTOMER WHERE PHONENUMBER = '" + phoneNumber + "' AND PASSWORD IS NOT NULL;")
+    print(sql)
+    c.execute(sql)
+    items = None
+    items = c.fetchone()
+    if items != None:
+        print("ITEMS DETECTED")
+        print("EXISTING CUSTOMER ID", items)
+        return True
+    else:
+        return False
+
+def registerCustomer(phonenumber, password):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql_1 = ("INSERT IGNORE INTO CUSTOMER(PHONENUMBER, PASSWORD) "
+             "VALUES('" + phonenumber + "', '" + password + "');")
+    print(sql_1)
+    c.execute(sql_1)
+
+    sql_2 = ("UPDATE CUSTOMER SET PASSWORD = '" + password + "' WHERE PHONENUMBER = '" + phonenumber + "'")
+    print(sql_2)
+    c.execute(sql_2)
+    conn.commit()
+
+    sql_3 = "SELECT CUSTOMERID FROM CUSTOMER WHERE PHONENUMBER = '" + phonenumber + "';"
+    print(sql_3)
+    c.execute(sql_3)
+
+    customerID = None
+    customerID = c.fetchone()
+    print("SELECT CUSTOMER_ID: ", customerID)
+    return customerID[0]
 
 #start class
-database = DatabaseManagerMYSQLClass()
+#database = DatabaseManagerMYSQLClass()
