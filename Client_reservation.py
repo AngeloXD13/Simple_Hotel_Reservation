@@ -2,7 +2,8 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QLabel, QLineEdit
 from PyQt5 import uic
 
-from DATABASE_MANAGER import checkcustomerIDandReservationIfExist
+from DATABASE_MANAGER_MYSQL import checkcustomerIDandReservationIfExist
+
 class ClientViewReservationClass(QMainWindow):
     def __init__(self, windowData):
         super(ClientViewReservationClass, self).__init__()

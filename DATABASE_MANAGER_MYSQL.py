@@ -382,5 +382,14 @@ def checkRoomNoIfAvailable(roomNumber):
     if room_No == None:
         return True
     else: return False
+
+def updateReservationStatus(reservation_ID, status):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql_1 = ("UPDATE RESERVATION SET STATUS = '" + status + "' WHERE RESERVATIONID = '" + str(reservation_ID) + "'")
+    print(sql_1)
+    c.execute(sql_1)
+    conn.commit()
 #start class
 #database = DatabaseManagerMYSQLClass()
