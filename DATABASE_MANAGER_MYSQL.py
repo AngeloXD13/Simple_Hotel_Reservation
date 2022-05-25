@@ -72,7 +72,7 @@ def createTable(self):
              " UNIQUE (`PhoneNumber`)"
              ") ENGINE = InnoDB;")
 
-    sql_2 = ("CREATE TABLE `hotel_reservation`.`room_info` ("
+    sql_2 = ("CREATE TABLE IF NOT EXISTS `hotel_reservation`.`room_info` ("
              " `RoomNo` INT NOT NULL AUTO_INCREMENT ,"
              " `SuiteName` TEXT NOT NULL ,"
              " `Description` TEXT NOT NULL ,"
@@ -89,17 +89,17 @@ def createTable(self):
              " `CustomerID` INT NOT NULL ,"
              " `Check_in_Date` DATE NOT NULL ,"
              " `Check_in_Time` TIME NOT NULL ,"
-             " `Checkout_Date` DATE NOT NULL ,"
-             " `Checkout_Time` TIME NOT NULL ,"
+             " `Check_out_Date` DATE NOT NULL ,"
+             " `Check_out_Time` TIME NOT NULL ,"
              " `Singlebed` INT DEFAULT '0' ,"
              " `DoubleBed` INT DEFAULT '0' ,"
              " `Familyroom` INT DEFAULT '0' ,"
-             " `Ameni_spa` BOOLEAN ,"
-             " `Ameni_petroom` BOOLEAN ,"
-             " `Ameni_Breakfast` BOOLEAN ,"
-             " `Payment_method` INT NOT NULL ,"
+             " `Ameni_spa` BOOLEAN DEFAULT '0',"
+             " `Ameni_petroom` BOOLEAN DEFAULT '0',"
+             " `Ameni_Breakfast` BOOLEAN DEFAULT '0',"
+             " `Payment_method` TEXT NOT NULL ,"
              " `Amount` DECIMAL NOT NULL DEFAULT '0' ,"
-             " `Balance` DECIMAL NOT NULL ,"
+             " `Balance` DECIMAL NOT NULL DEFAULT '0' ,"
              " `Room_No` INT NOT NULL ,"
              " `Status` TEXT NOT NULL ,"
              " `Remarks` TEXT ,"
@@ -146,7 +146,7 @@ def getDataPhoneNumberIfExist(phoneNumber):
     conn = mysql.connector.connect(**config2)
     c = conn.cursor()
 
-    sql = ("SELECT * FROM CUSTOMER WHERE PHONENUMBER = '" + phoneNumber + "';")
+    sql = ("SELECT * FROM CUSTOMER WHERE PHONENUMBER = '" + str(phoneNumber) + "';")
     print(sql)
     c.execute(sql)
 
@@ -162,8 +162,8 @@ def getDataPhoneNumberIfExist(phoneNumber):
         print(items)
 
         customer_account.customerID = str(items[0])
-        customer_account.customerPhoneNumber = items[1]
-        customer_account.customerFullName = items[2]
+        customer_account.customerPhoneNumber = items[2]
+        customer_account.customerFullName = items[1]
         customer_account.customerAddress = items[3]
 
         return customer_account
@@ -243,10 +243,144 @@ def getcustomerDetails(customerID):
         print(items)
 
         customer_account.customerID = str(items[0])
-        customer_account.customerPhoneNumber = items[1]
-        customer_account.customerFullName = items[2]
+        customer_account.customerPhoneNumber = items[2]
+        customer_account.customerFullName = items[1]
         customer_account.customerAddress = items[3]
 
         return customer_account
+
+def insertCustomerInfo(customerPhoneNumber, customerFullName, customerAddress):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    try:
+        sql_1 = ("INSERT OR IGNORE INTO CUSTOMER(PHONENUMBER, FULLNAME, ADDRESS) "
+                 "VALUES('" + customerPhoneNumber + "', '" + customerFullName + "', '" + customerAddress  + "');")
+        print(sql_1)
+        c.execute(sql_1)
+    except mysql.connector.Error as err:
+        print("sql failed")
+        print(err)
+
+
+    sql_2 = ("UPDATE CUSTOMER SET FULLNAME = '" + customerFullName + "', ADDRESS = '" + customerAddress + "' WHERE PHONENUMBER = '" + customerPhoneNumber + "'")
+    print(sql_2)
+    c.execute(sql_2)
+
+    conn.commit()
+    sql_3 = "SELECT CUSTOMERID FROM CUSTOMER WHERE PHONENUMBER = '" + customerPhoneNumber + "';"
+    print(sql_3)
+    c.execute(sql_3)
+
+    customerID = None
+    customerID = c.fetchone()
+    print("SELECT CUSTOMERID: ", customerID)
+    return customerID[0]
+
+
+def insertReservationInfo(customerID, checkin_date, checkin_time, checkout_date, checkout_time, singlebed, doublebed, familyroom, ameni_spa, ameni_petroom, ameni_breakfast, paymentmethod, amount, balance, room_no, status, remarks):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql_1 = ("INSERT INTO RESERVATION("
+             " CUSTOMERID,"
+             " CHECK_IN_DATE,"
+             " CHECK_IN_TIME,"
+             " CHECK_OUT_DATE,"
+             " CHECK_OUT_TIME,"
+             " SINGLEBED,"
+             " DOUBLEBED,"
+             " FAMILYROOM,"
+             " AMENI_SPA,"
+             " AMENI_PETROOM,"
+             " AMENI_BREAKFAST,"
+             " PAYMENT_METHOD,"
+             " AMOUNT,"
+             " BALANCE,"
+             " ROOM_NO,"
+             " STATUS,"
+             " REMARKS"
+             ") "
+             "VALUES("
+             "'" + str(customerID) + "', '"
+             + str(checkin_date) + "', '"
+             + str(checkin_time) + "', '"
+             + str(checkout_date) + "', '"
+             + str(checkout_time) + "', '"
+             + str(singlebed) + "', '"
+             + str(doublebed) + "', '"
+             + str(familyroom) + "', '"
+             + str(ameni_spa) + "', '"
+             + str(ameni_petroom) + "', '"
+             + str(ameni_petroom) + "', '"
+             + str(paymentmethod) + "', '"
+             + str(amount) + "', '"
+             + str(balance) + "', '"
+             + str(room_no) + "', '"
+             + status + "' , '"
+             + remarks + "');")
+
+
+    print(sql_1)
+    c.execute(sql_1)
+    conn.commit()
+    print("insertReservationInfo ID:", c.lastrowid)
+    return c.lastrowid
+
+
+def checkcustomerIDandReservationIfExist(customerID):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql_3 = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = '" + str(customerID) + "';"
+    print(sql_3)
+    c.execute(sql_3)
+
+    customerinfo = None
+    customerinfo = c.fetchone()
+    print("SELECT all : ", customerinfo)
+
+    if customerinfo != None:
+        customername = customerinfo[2]
+
+        sql_3 = ("SELECT * FROM RESERVATION WHERE CUSTOMERID = '" + str(customerID) + "' AND STATUS = 'Reserved';")
+        print(sql_3)
+        c.execute(sql_3)
+
+        reservationItem = None
+        reservationItem= c.fetchone()
+        print("SELECT * FROM RESERVATION: ", reservationItem)
+        if reservationItem == None:
+            print("no ITEMS DETECTED")
+            return None
+        else:
+            from ReservationDATA import Reservation
+            reservation_data = None
+            reservation_data = Reservation
+            print(reservationItem)
+
+            reservation_data.reservation_id = reservationItem[0]
+            reservation_data.customer_id = reservationItem[1]
+            reservation_data.customer_name = customername
+            reservation_data.checkin_date = reservationItem[2]
+            reservation_data.checkout_date = reservationItem[4]
+            reservation_data.room_no = reservationItem[13]
+
+            return reservation_data
+
+def checkRoomNoIfAvailable(roomNumber):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql_1 = ("SELECT ROOM_NO FROM RESERVATION WHERE ROOM_NO = '" + str(roomNumber) + "' AND STATUS = 'Reserved';")
+    print(sql_1)
+    c.execute(sql_1)
+
+    room_No = None
+    room_No = c.fetchone()
+    print("SELECT CUSTOMERID: ", room_No)
+    if room_No == None:
+        return True
+    else: return False
 #start class
 #database = DatabaseManagerMYSQLClass()

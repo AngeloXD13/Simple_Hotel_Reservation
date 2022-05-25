@@ -30,6 +30,7 @@ class ClientMenuClass(QMainWindow):
 
 def getandsetCustomerData(self):
     customerID = self.windowData.accountDATA.customerID
+    print(customerID)
     account_data = getcustomerDetails(customerID)
     print("account_data", account_data)
     self.windowData.accountDATA = account_data
