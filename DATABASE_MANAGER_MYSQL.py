@@ -62,7 +62,7 @@ def createTable(self):
     sql_1 = ("CREATE TABLE IF NOT EXISTS `hotel_reservation`.`customer` ("
              " `CustomerID` INT NOT NULL AUTO_INCREMENT ,"
              " `FullName` TEXT ,"
-             " `PhoneNumber` BIGINT(11) NOT NULL,"
+             " `PhoneNumber` VARCHAR(11) NOT NULL,"
              " `Address` TEXT ,"
              " `Password` TEXT NOT NULL DEFAULT '' ,"
              " `Status` TEXT ,"
@@ -207,5 +207,46 @@ def registerCustomer(phonenumber, password):
     print("SELECT CUSTOMER_ID: ", customerID)
     return customerID[0]
 
+def loginCustomer(phoneNumber, password):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql = ("SELECT CUSTOMERID FROM CUSTOMER WHERE PHONENUMBER = '" + phoneNumber + "' AND PASSWORD = '" + password + "';")
+    print(sql)
+    c.execute(sql)
+    customerData = None
+    customerData = c.fetchone()
+
+    print("SELECT CUSTOMER_ID: ", customerData)
+    if customerData != None:
+        print("ITEMS DETECTED")
+        return customerData[0]
+    else:
+        return None
+
+def getcustomerDetails(customerID):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql = ("SELECT * FROM CUSTOMER WHERE CUSTOMERID = '" + str(customerID) + "';")
+    c.execute(sql)
+
+    items = None
+    items = c.fetchone()
+    if items == None:
+        print("no ITEMS DETECTED")
+        return None
+    else:
+        from AccountDATA import Account
+        customer_account = None
+        customer_account = Account
+        print(items)
+
+        customer_account.customerID = str(items[0])
+        customer_account.customerPhoneNumber = items[1]
+        customer_account.customerFullName = items[2]
+        customer_account.customerAddress = items[3]
+
+        return customer_account
 #start class
 #database = DatabaseManagerMYSQLClass()

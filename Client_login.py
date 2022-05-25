@@ -42,7 +42,7 @@ def checkvaluesandpassword(self):
 
 def checkdatabase(self):
     print("checkdatabase")
-    from DATABASE_MANAGER import loginCustomer
+    from DATABASE_MANAGER_MYSQL import loginCustomer
     from AccountDATA import Account
     self.customerID = None
     self.customerID = loginCustomer(self.phonenumber, self.password)

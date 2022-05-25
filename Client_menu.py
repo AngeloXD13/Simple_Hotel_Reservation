@@ -5,7 +5,7 @@ from PyQt5 import uic
 from Client_booking import ClientBookingClass
 from Client_cancellation import ClientCancellationClass
 
-from DATABASE_MANAGER import getcustomerDetails
+from DATABASE_MANAGER_MYSQL import getcustomerDetails
 class ClientMenuClass(QMainWindow):
     def __init__(self, windowData):
         super(ClientMenuClass, self).__init__()
