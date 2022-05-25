@@ -2,7 +2,8 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel
 from PyQt5 import uic
 
-from DATABASE_MANAGER import checkPhoneNumberisRegistered
+from DATABASE_MANAGER_MYSQL import checkPhoneNumberisRegistered
+
 class ClientRegisterClass(QMainWindow):
     def __init__(self, windowData):
         super(ClientRegisterClass, self).__init__()
@@ -46,7 +47,7 @@ def checkvaluesandpassword(self):
 
 def savetodatabase(self):
     print("savetodatabase")
-    from DATABASE_MANAGER import registerCustomer
+    from DATABASE_MANAGER_MYSQL import registerCustomer
     from AccountDATA import Account
     self.customerID = registerCustomer(self.phonenumber, self.password)
 
