@@ -249,13 +249,13 @@ def getcustomerDetails(customerID):
 
         return customer_account
 
-def insertCustomerInfo(customerPhoneNumber, customerFullName, customerAddress):
+def insertCustomerInfo(customerPhoneNumber, customerFullName, customerAddress, status, guestcount):
     conn = mysql.connector.connect(**config2)
     c = conn.cursor()
 
     try:
-        sql_1 = ("INSERT IGNORE INTO CUSTOMER(PHONENUMBER, FULLNAME, ADDRESS) "
-                 "VALUES('" + customerPhoneNumber + "', '" + customerFullName + "', '" + customerAddress  + "');")
+        sql_1 = ("INSERT IGNORE INTO CUSTOMER(PHONENUMBER, FULLNAME, ADDRESS, STATUS, GUESTCOUNT) "
+                 "VALUES('" + customerPhoneNumber + "', '" + customerFullName + "', '" + customerAddress + "', '" + status + "', '" + str(guestcount) + "');")
         print(sql_1)
         c.execute(sql_1)
     except mysql.connector.Error as err:
@@ -263,7 +263,7 @@ def insertCustomerInfo(customerPhoneNumber, customerFullName, customerAddress):
         print(err)
 
 
-    sql_2 = ("UPDATE CUSTOMER SET FULLNAME = '" + customerFullName + "', ADDRESS = '" + customerAddress + "' WHERE PHONENUMBER = '" + customerPhoneNumber + "'")
+    sql_2 = ("UPDATE CUSTOMER SET FULLNAME = '" + customerFullName + "', ADDRESS = '" + customerAddress + "', STATUS = '" + status + "', GUESTCOUNT = " + str(guestcount) + " WHERE PHONENUMBER = '" + customerPhoneNumber + "';")
     print(sql_2)
     c.execute(sql_2)
 
@@ -364,7 +364,7 @@ def checkcustomerIDandReservationIfExist(customerID):
             reservation_data.customer_name = customername
             reservation_data.checkin_date = reservationItem[2]
             reservation_data.checkout_date = reservationItem[4]
-            reservation_data.room_no = reservationItem[13]
+            reservation_data.room_no = reservationItem[15]
 
             return reservation_data
 

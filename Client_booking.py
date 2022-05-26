@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton, QLabel, QLineEdit, QDateEd
 from PyQt5 import uic
 
 from Client_booking_confirmation import ClientBookingConfirmationClass
+from Client_booking_checkout import ClientBookingCheckoutClass
 
 import random
 from PyQt5 import QtCore
@@ -38,25 +39,25 @@ class ClientBookingClass(QMainWindow):
         self.familyroom_tb = self.findChild(QTextBrowser,"family_tb")
 
         self.spa_cb = self.findChild(QCheckBox, "spa_cb")
-        self.pool_cb = self.findChild(QCheckBox, "petroom_cb")
+        self.petroom_cb = self.findChild(QCheckBox, "petroom_cb")
         self.breakfast_cb = self.findChild(QCheckBox, "breakfast_cb")
 
-        self.creditcard_rb = self.findChild(QRadioButton, "credit_rb")
-        self.paymaya_rb = self.findChild(QRadioButton, "paymaya_rb")
-        self.gcash_rb = self.findChild(QRadioButton, "gcash_rb")
+        self.adult_sb = self.findChild(QSpinBox, "adults_sb")
+        self.children_sb = self.findChild(QSpinBox, "children_sb")
 
         self.amount_tb = self.findChild(QTextBrowser, "totalamount_tb")
         self.status_lbl = self.findChild(QLabel, "status_lbl")
         self.status_lbl.setText("Fill-out Phone number first")
-        self.reserve_btn = self.findChild(QPushButton, "reserve_btn")
+
+        self.checkout_btn = self.findChild(QPushButton, "checkout_btn")
+
+        self.remarks_le = self.findChild(QLineEdit, "remarks_le")
+
         self.exit_btn = self.findChild(QPushButton, "exit_btn")
-
-
         self.exit_btn.clicked.connect(lambda: gotomenu(self))
-        self.reserve_btn.clicked.connect(lambda: insertCustomerDetails(self))
 
-        self.reserve_btn.clicked.connect(lambda: insertCustomerDetails(self))
-        self.reserve_btn.setEnabled(False)
+        self.checkout_btn.clicked.connect(lambda: gotocheckout(self))
+        self.checkout_btn.setEnabled(False)
 
         self.reservationIsActive = None
         self.ui = None
@@ -82,10 +83,9 @@ def changeSignals(self):
     self.doublebed_sb.valueChanged.connect(lambda: getActiveValues(self))
     self.familyroom_sb.valueChanged.connect(lambda: getActiveValues(self))
     self.spa_cb.stateChanged.connect(lambda: getActiveValues(self))
-    self.pool_cb.stateChanged.connect(lambda: getActiveValues(self))
-    self.creditcard_rb.released.connect(lambda: getActiveValues(self))
-    self.paymaya_rb.released.connect(lambda: getActiveValues(self))
-    self.gcash_rb.released.connect(lambda: getActiveValues(self))
+    self.petroom_cb.stateChanged.connect(lambda: getActiveValues(self))
+    self.breakfast_cb.stateChanged.connect(lambda: getActiveValues(self))
+
     self.fullname_le.textChanged.connect(lambda: getActiveValues(self))
     self.address_le.textChanged.connect(lambda: getActiveValues(self))
 
@@ -95,10 +95,13 @@ def refreshAmount(self):
     totalDoubleBed = int(self.doublebed) * 1200
     totalFamilyRoom = int(self.familyroom) * 3600
     amenities = 0
-    if self.spa == True:
+    if self.spa == 1 :
         amenities = amenities + 500
-    if self.pool == True:
+    if self.petroom == 1 :
         amenities = amenities + 250
+    if self.breakfast == 1:
+        amenities = amenities + 250
+
     subtotalamount = totalSingleBed + totalDoubleBed + totalFamilyRoom + amenities
     self.totaldays = int(self.checkout_date[2]) - int(self.checkin_date[2])
 
@@ -122,7 +125,7 @@ def refreshAmount(self):
 
 def inputChecker(self):
     self.status_lbl.clear()
-    self.reserve_btn.setEnabled(False)
+    self.checkout_btn.setEnabled(False)
 
     if self.phonenumber == '':
         self.status_lbl.setText("Phone Number field is empty")
@@ -137,14 +140,12 @@ def inputChecker(self):
         self.status_lbl.setText("Add days")
     else:
         getPassiveValues(self)
-        if self.creditcard == False and self.paymaya == False and self.gcash == False:
-            self.status_lbl.setText("Choose Payment Option")
-        elif self.fullname == '':
+        if self.fullname == '':
             self.status_lbl.setText("Name field is empty")
         elif self.address == '':
             self.status_lbl.setText("Address field is empty")
         else:
-            self.reserve_btn.setEnabled(True)
+            self.checkout_btn.setEnabled(True)
             self.status_lbl.setText("OK")
 
 def getActiveValues(self):
@@ -179,29 +180,34 @@ def getActiveValues(self):
         self.spa = 1
         print("self.spa", self.spa)
 
-    self.pool = self.pool_cb.isChecked()
-    print("self.pool", self.pool)
+    self.petroom = 0
+    if self.petroom_cb.isChecked():
+        self.petroom = 1
+        print("self.petroom", self.petroom)
+
+    self.breakfast = 0
+    if self.breakfast_cb.isChecked():
+        self.breakfast = 1
+        print("self.breakfast", self.breakfast)
 
     refreshAmount(self)
 
 def getPassiveValues(self):
     self.fullname = ''
     self.address = ''
+    self.remarks = ''
+    self.adult = 0
+    self.children = 0
+    self.guestCount = 0
 
+    self.remarks = self.remarks_le.text()
     self.fullname = self.fullname_le.text()
     self.address = self.address_le.text()
 
-    self.creditcard = self.creditcard_rb.isChecked()
-    self.paymaya = self.paymaya_rb.isChecked()
-    self.gcash = self.gcash_rb.isChecked()
+    self.adult = self.adult_sb.value()
+    self.children = self.children_sb.value()
+    self.guestCount = self.adult + self.children
 
-    self.paymentMethod = None
-    if self.creditcard == True:
-        self.paymentMethod = "Credit Card"
-    elif self.paymaya == True:
-        self.paymentMethod = "PayMaya"
-    elif self.gcash == True:
-        self.paymentMethod = "GCash"
 
 def checkphonenumber(self):
     #self.phonenumber = self.phonenumber_le.text()
@@ -220,8 +226,9 @@ def checkphonenumber(self):
 
 def insertCustomerDetails(self):
     getPassiveValues(self)
-    customerID = insertCustomerInfo(self.phonenumber, self.fullname, self.address)
+    customerID = insertCustomerInfo(self.phonenumber, self.fullname, self.address, "Reserved", self.guestCount)
     print("insertCustomerDetails_custmerID", customerID)
+
     insertReservationDetails(self, customerID)
 
 def insertReservationDetails(self, customerID):
@@ -253,18 +260,19 @@ def insertReservationDetails(self, customerID):
                                   self.doublebed,
                                   self.familyroom,
                                   self.spa,
-                                 "0", #TODO PETROOM
-                                "0", # TODO: breakfast
-                                  self.paymentMethod,
+                                  self.petroom,
+                                  self.breakfast,
+                                  self.ui.paymentMethod,
                                   self.totalamount,
-                                "0", # TODO: balance
+                                  self.balance,
                                   room_no,
                                   "Reserved",
-                                 "None" # TODO: REMARKS
+                                  self.remarks # TODO: REMARKS
                                                   )
             self.status_lbl.setText("SUCCESSS")
-            self.reserve_btn.setEnabled(False)
-            self.reserve_btn.disconnect()
+            self.ui.reserve_btn.setEnabled(False)
+            self.ui.reserve_btn.disconnect()
+            self.ui.hide()
 
             gotobookingconfirmation(self, customerID, room_no)
             ##get reservation details
@@ -297,3 +305,34 @@ def showErrorDialog(self, errorText,  errorText2):
     self.ui.scenario_lbl2.setText(errorText2)
 
     self.ui.ok_btn.clicked.connect(lambda : gotomenu(self))
+
+def gotocheckout(self):
+
+    self.ui = ClientBookingCheckoutClass(self.windowData)
+
+    self.ui.reserve_btn.clicked.connect(lambda: insertCustomerDetails(self))
+    self.ui.reserve_btn.setEnabled(False)
+
+    self.ui.rate_tb.setText("₱ {:,.2f}".format(self.totalamount))
+
+    self.ui.downpayment_rb.toggled.connect(lambda: calculatebalance(self))
+    self.ui.fullypaid_rb.toggled.connect(lambda: calculatebalance(self))
+
+def calculatebalance(self):
+
+    print("calculate balance")
+
+    self.isdownpayment = 0
+    if self.ui.downpayment_rb.isChecked():
+        self.isdownpayment = 1
+
+    self.balance = 0
+    self.downpayment = 0
+
+    if self.isdownpayment == 1:
+        self.downpayment = self.totalamount * 0.20
+        self.ui.totalamount_tb.setText("₱ {:,.2f}".format(self.downpayment))
+        self.balance = self.totalamount - self.downpayment
+    else:
+        self.ui.totalamount_tb.setText("₱ {:,.2f}".format(self.totalamount))
+        self.balance = 0
