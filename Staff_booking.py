@@ -5,10 +5,10 @@ from PyQt5 import uic
 
 from PyQt5 import QtCore
 
-from DATABASE_MANAGER import getDataPhoneNumberIfExist
-from DATABASE_MANAGER import insertCustomerInfo
-from DATABASE_MANAGER import insertReservationInfo
-from DATABASE_MANAGER import checkcustomerIDandReservationIfExist
+from DATABASE_MANAGER_MYSQL import getDataPhoneNumberIfExist
+from DATABASE_MANAGER_MYSQL import insertCustomerInfo
+from DATABASE_MANAGER_MYSQL import insertReservationInfo
+from DATABASE_MANAGER_MYSQL import checkcustomerIDandReservationIfExist
 
 class StaffBookingClass(QMainWindow):
     def __init__(self, windowData):
@@ -147,11 +147,14 @@ def getActiveValues(self):
     self.phonenumber = self.phonenumber_le.text()
 
     self.checkin_date = self.checkin_de.date().getDate()
+    self.checkin_date_converted = self.checkin_de.date().toString("yyyy-MM-dd")
     print("self.checkin_date", self.checkin_date)
     print("extracted date", self.checkin_date[2])
+
     self.checkin_time = self.checkin_te.time().hour()
     print("self.checkin_time", self.checkin_time)
     self.checkout_date = self.checkout_de.date().getDate()
+    self.checkout_date_converted = self.checkout_de.date().toString("yyyy-MM-dd")
     print("self.checkout_date", self.checkout_date)
     self.checkout_time = self.checkout_te.time().hour()
     print("self.checkout_time", self.checkout_time)
@@ -163,8 +166,11 @@ def getActiveValues(self):
     self.familyroom = self.familyroom_sb.value()
     print("self.familyroom", self.familyroom)
 
-    self.spa = self.spa_cb.isChecked()
-    print("self.spa", self.spa)
+    self.spa = 0
+    if self.spa_cb.isChecked():
+        self.spa = 1
+        print("self.spa", self.spa)
+
     self.pool = self.pool_cb.isChecked()
     print("self.pool",self.pool)
 
@@ -217,7 +223,7 @@ def insertCustomerDetails(self):
     insertReservationDetails(self, customerID)
 
 def insertReservationDetails(self, customerID):
-    from DATABASE_MANAGER import checkRoomNoIfAvailable
+    from DATABASE_MANAGER_MYSQL import checkRoomNoIfAvailable
     roomIsAvailable = False
     global tries
     tries = 0
@@ -235,19 +241,23 @@ def insertReservationDetails(self, customerID):
         if tries != 500:
             print("INSERT RESERVATION")
             insertReservationInfo(customerID,
-                                  self.checkin_date,
+                                  self.checkin_date_converted,
                                   self.checkin_time,
-                                  self.checkout_date,
+                                  self.checkout_date_converted,
                                   self.checkout_time,
                                   self.singlebed,
                                   self.doublebed,
                                   self.familyroom,
                                   self.spa,
-                                  self.pool,
+                                  "0",  # TODO PETROOM
+                                  "0",  # TODO: breakfast
                                   self.paymentMethod,
                                   self.totalamount,
+                                  "0",  # TODO: balance
                                   room_no,
-                                  "Reserved")
+                                  "Reserved",
+                                  "None"  # TODO: REMARKS
+                                  )
             self.status_lbl.setText("SUCCESSS")
             self.reserve_btn.setEnabled(False)
             self.reserve_btn.disconnect()

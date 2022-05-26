@@ -254,7 +254,7 @@ def insertCustomerInfo(customerPhoneNumber, customerFullName, customerAddress):
     c = conn.cursor()
 
     try:
-        sql_1 = ("INSERT OR IGNORE INTO CUSTOMER(PHONENUMBER, FULLNAME, ADDRESS) "
+        sql_1 = ("INSERT IGNORE INTO CUSTOMER(PHONENUMBER, FULLNAME, ADDRESS) "
                  "VALUES('" + customerPhoneNumber + "', '" + customerFullName + "', '" + customerAddress  + "');")
         print(sql_1)
         c.execute(sql_1)
@@ -341,7 +341,7 @@ def checkcustomerIDandReservationIfExist(customerID):
     print("SELECT all : ", customerinfo)
 
     if customerinfo != None:
-        customername = customerinfo[2]
+        customername = customerinfo[1]
 
         sql_3 = ("SELECT * FROM RESERVATION WHERE CUSTOMERID = '" + str(customerID) + "' AND STATUS = 'Reserved';")
         print(sql_3)
@@ -391,5 +391,22 @@ def updateReservationStatus(reservation_ID, status):
     print(sql_1)
     c.execute(sql_1)
     conn.commit()
+
+
+def getAllReservationData():
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql = ("SELECT * "
+           " FROM RESERVATION"
+           " INNER JOIN CUSTOMER on CUSTOMER.CUSTOMERID = RESERVATION.CUSTOMERID;")
+    print(sql)
+    c.execute(sql)
+
+    items = None
+    items = c.fetchall()
+
+
+    return items
 #start class
 #database = DatabaseManagerMYSQLClass()

@@ -2,8 +2,8 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QLabel, QLineEdit
 from PyQt5 import uic
 
-from DATABASE_MANAGER import checkcustomerIDandReservationIfExist
-from DATABASE_MANAGER import updateReservationStatus
+from DATABASE_MANAGER_MYSQL import checkcustomerIDandReservationIfExist
+from DATABASE_MANAGER_MYSQL import updateReservationStatus
 
 from Staff_cancellation_confirm import StaffCancellationConfirmationClass
 class StaffCancellationClass(QMainWindow):
@@ -45,7 +45,7 @@ def gotoConfirmation(self):
 
     self.ui = None
     self.ui = StaffCancellationConfirmationClass(self.windowData)
-    self.ui.customerID_lbl.setText(self.reservation_data.customer_name + " on " + self.reservation_data.checkin_date + " to " + self.reservation_data.checkout_date)
+    self.ui.customerID_lbl.setText(self.reservation_data.customer_name + " on " + str(self.reservation_data.checkin_date) + " to " + str(self.reservation_data.checkout_date))
 
     self.ui.cancel_btn.clicked.connect(lambda: reshowthis(self))
     self.ui.confirm_btn.clicked.connect(lambda: updateDatabase(self))

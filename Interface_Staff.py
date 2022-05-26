@@ -8,7 +8,7 @@ from Staff_booking import StaffBookingClass
 from Staff_cancellation import StaffCancellationClass
 from Staff_reservation import StaffReservationClass
 
-from DATABASE_MANAGER import DatabaseManagerClass
+from DATABASE_MANAGER_MYSQL import DatabaseManagerMYSQLClass
 
 class InterfaceStaffClass(QMainWindow):
     def __init__(self):
@@ -17,7 +17,7 @@ class InterfaceStaffClass(QMainWindow):
         self.windowdata = None
         self.windowdata = WindowDatas
 
-        database = DatabaseManagerClass()
+        database = DatabaseManagerMYSQLClass()
 
         uic.loadUi("ui/menu.ui", self)
 
