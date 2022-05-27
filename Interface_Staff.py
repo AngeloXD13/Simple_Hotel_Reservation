@@ -19,7 +19,7 @@ class InterfaceStaffClass(QMainWindow):
 
         database = DatabaseManagerMYSQLClass()
 
-        uic.loadUi("ui/menu.ui", self)
+        uic.loadUi("ui/menu_staff.ui", self)
 
         self.booking_btn = self.findChild(QPushButton, "booking_btn")
         self.cancelation_btn = self.findChild(QPushButton, "cancelation_btn")

@@ -89,6 +89,9 @@ def changeSignals(self):
     self.fullname_le.textChanged.connect(lambda: getActiveValues(self))
     self.address_le.textChanged.connect(lambda: getActiveValues(self))
 
+    self.adult_sb.valueChanged.connect(lambda: getActiveValues(self))
+    self.children_sb.valueChanged.connect(lambda: getActiveValues(self))
+
 def refreshAmount(self):
     subtotalamount = 0
     totalSingleBed = int(self.singlebed) * 950
@@ -144,6 +147,8 @@ def inputChecker(self):
             self.status_lbl.setText("Name field is empty")
         elif self.address == '':
             self.status_lbl.setText("Address field is empty")
+        elif self.guestCount == 0:
+            self.status_lbl.setText("Add guests")
         else:
             self.checkout_btn.setEnabled(True)
             self.status_lbl.setText("OK")
@@ -228,7 +233,6 @@ def insertCustomerDetails(self):
     getPassiveValues(self)
     customerID = insertCustomerInfo(self.phonenumber, self.fullname, self.address, "Reserved", self.guestCount)
     print("insertCustomerDetails_custmerID", customerID)
-
     insertReservationDetails(self, customerID)
 
 def insertReservationDetails(self, customerID):
@@ -267,12 +271,14 @@ def insertReservationDetails(self, customerID):
                                   self.balance,
                                   room_no,
                                   "Reserved",
-                                  self.remarks # TODO: REMARKS
+                                  self.remarks
                                                   )
             self.status_lbl.setText("SUCCESSS")
             self.ui.reserve_btn.setEnabled(False)
             self.ui.reserve_btn.disconnect()
             self.ui.hide()
+
+            self.checkout_btn.setEnabled(False)
 
             gotobookingconfirmation(self, customerID, room_no)
             ##get reservation details
