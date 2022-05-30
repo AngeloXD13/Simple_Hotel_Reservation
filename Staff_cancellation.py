@@ -4,6 +4,7 @@ from PyQt5 import uic
 
 from DATABASE_MANAGER_MYSQL import checkcustomerIDandReservationIfExist
 from DATABASE_MANAGER_MYSQL import updateReservationStatus
+from DATABASE_MANAGER_MYSQL import updateCustomerStatus
 
 from Staff_cancellation_confirm import StaffCancellationConfirmationClass
 class StaffCancellationClass(QMainWindow):
@@ -56,6 +57,7 @@ def reshowthis(self):
 
 def updateDatabase(self):
     updateReservationStatus(self.reservation_data.reservation_id, "Cancelled")
+    updateCustomerStatus(self.customerID, "Inactive", 0)
     gotomenu(self)
 
 def gotomenu(self):
