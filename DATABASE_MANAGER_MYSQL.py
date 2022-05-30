@@ -16,6 +16,7 @@ config2 = {
   'database': 'HOTEL_RESERVATION',
   'raise_on_warnings': True
 }
+
 print("dsdsd")
 class DatabaseManagerMYSQLClass():
     def __init__(self):
@@ -39,7 +40,6 @@ class DatabaseManagerMYSQLClass():
         else:
             createDatabase(self)
             self.conn.close()
-
 
 def createDatabase(self):
     sql_0 = "CREATE DATABASE IF NOT EXISTS HOTEL_RESERVATION;"
@@ -246,6 +246,9 @@ def getcustomerDetails(customerID):
         customer_account.customerPhoneNumber = items[2]
         customer_account.customerFullName = items[1]
         customer_account.customerAddress = items[3]
+        customer_account.customerStatus = items[5]
+        customer_account.customerRemarks = items[6]
+        customer_account.customerGuestCount = items[7]
 
         return customer_account
 
@@ -276,7 +279,6 @@ def insertCustomerInfo(customerPhoneNumber, customerFullName, customerAddress, s
     customerID = c.fetchone()
     print("SELECT CUSTOMERID: ", customerID)
     return customerID[0]
-
 
 def insertReservationInfo(customerID, checkin_date, checkin_time, checkout_date, checkout_time, singlebed, doublebed, familyroom, ameni_spa, ameni_petroom, ameni_breakfast, paymentmethod, amount, balance, room_no, status, remarks):
     conn = mysql.connector.connect(**config2)
@@ -327,7 +329,6 @@ def insertReservationInfo(customerID, checkin_date, checkin_time, checkout_date,
     print("insertReservationInfo ID:", c.lastrowid)
     return c.lastrowid
 
-
 def checkcustomerIDandReservationIfExist(customerID):
     conn = mysql.connector.connect(**config2)
     c = conn.cursor()
@@ -343,7 +344,7 @@ def checkcustomerIDandReservationIfExist(customerID):
     if customerinfo != None:
         customername = customerinfo[1]
 
-        sql_3 = ("SELECT * FROM RESERVATION WHERE CUSTOMERID = '" + str(customerID) + "' AND STATUS = 'Reserved';")
+        sql_3 = ("SELECT * FROM RESERVATION WHERE CUSTOMERID = '" + str(customerID) + "' AND STATUS IN ('Reserved','Active');")
         print(sql_3)
         c.execute(sql_3)
 
@@ -365,6 +366,15 @@ def checkcustomerIDandReservationIfExist(customerID):
             reservation_data.checkin_date = reservationItem[2]
             reservation_data.checkout_date = reservationItem[4]
             reservation_data.room_no = reservationItem[15]
+            reservation_data.singlebed = reservationItem[6]
+            reservation_data.doublebed = reservationItem[7]
+            reservation_data.familyroom = reservationItem[8]
+            reservation_data.ameni_spa = reservationItem[9]
+            reservation_data.ameni_petroom = reservationItem[10]
+            reservation_data.ameni_breakfast = reservationItem[11]
+            reservation_data.balance = reservationItem[14]
+            reservation_data.status = reservationItem[16]
+            reservation_data.remarks = reservationItem[17]
 
             return reservation_data
 
@@ -392,6 +402,23 @@ def updateReservationStatus(reservation_ID, status):
     c.execute(sql_1)
     conn.commit()
 
+def updateCustomerStatus(customer_ID, status, guest):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql_1 = ("UPDATE CUSTOMER SET STATUS = '" + status + "', GUESTCOUNT = '" + str(guest) + "'  WHERE CUSTOMERID = '" + str(customer_ID) + "'")
+    print(sql_1)
+    c.execute(sql_1)
+    conn.commit()
+
+def updateReservationBalance(reservation_ID, balance):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql_1 = ("UPDATE RESERVATION SET BALANCE = '" + str(balance) + "' WHERE RESERVATIONID = '" + str(reservation_ID) + "'")
+    print(sql_1)
+    c.execute(sql_1)
+    conn.commit()
 
 def getAllReservationData():
     conn = mysql.connector.connect(**config2)
@@ -406,7 +433,88 @@ def getAllReservationData():
     items = None
     items = c.fetchall()
 
-
     return items
+
+def findCustomersName(name):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql = ("SELECT COUNT(CustomerID) FROM customer WHERE FULLNAME LIKE '%"+name+"%';")
+    print(sql)
+    c.execute(sql)
+
+    count = None
+    count = c.fetchone()
+    print(count)
+    if count[0] > 1:
+        return "MULTIPLE"
+    elif count[0] == 0:
+        return "NO"
+    else:
+        sql2 = ("SELECT * FROM customer WHERE FULLNAME LIKE '%" + name + "%';")
+        print(sql2)
+        c.execute(sql2)
+
+        items = None
+        items = c.fetchone()
+        if items == None:
+            print("no ITEMS DETECTED")
+            return None
+        else:
+            from AccountDATA import Account
+            customer_account = None
+            customer_account = Account
+            print(items)
+
+            customer_account.customerID = str(items[0])
+            customer_account.customerPhoneNumber = items[2]
+            customer_account.customerFullName = items[1]
+            customer_account.customerAddress = items[3]
+            customer_account.customerStatus = items[5]
+            customer_account.customerRemarks = items[6]
+            customer_account.customerGuestCount = items[7]
+
+            return customer_account
+
+def findreservationIDandReturnALL(reservationID):
+    conn = mysql.connector.connect(**config2)
+    c = conn.cursor()
+
+    sql = ("SELECT * "
+           " FROM RESERVATION"
+           " WHERE RESERVATIONID = '"+ str(reservationID) + "';")
+    print(sql)
+    c.execute(sql)
+
+    reservationItem = None
+    reservationItem = c.fetchone()
+    print("SELECT * FROM RESERVATION: ", reservationItem)
+    if reservationItem == None:
+        print("no ITEMS DETECTED")
+        return None
+    else:
+        from ReservationDATA import Reservation
+        reservation_data = None
+        reservation_data = Reservation
+        print(reservationItem)
+
+        reservation_data.reservation_id = reservationItem[0]
+        reservation_data.customer_id = reservationItem[1]
+        reservation_data.checkin_date = reservationItem[2]
+        reservation_data.checkout_date = reservationItem[4]
+        reservation_data.room_no = reservationItem[15]
+        reservation_data.singlebed = reservationItem[6]
+        reservation_data.doublebed = reservationItem[7]
+        reservation_data.familyroom = reservationItem[8]
+        reservation_data.ameni_spa = reservationItem[9]
+        reservation_data.ameni_petroom = reservationItem[10]
+        reservation_data.ameni_breakfast = reservationItem[11]
+        reservation_data.balance = reservationItem[14]
+        reservation_data.status = reservationItem[16]
+        reservation_data.remarks = reservationItem[17]
+
+        return reservation_data
+
+
 #start class
 #database = DatabaseManagerMYSQLClass()
