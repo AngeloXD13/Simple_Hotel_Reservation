@@ -134,7 +134,7 @@
    <widget class="QPushButton" name="findbooking_btn">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>260</x>
       <y>270</y>
       <width>201</width>
       <height>71</height>
