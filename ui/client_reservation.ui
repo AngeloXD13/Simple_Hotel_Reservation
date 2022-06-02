@@ -6,43 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>529</height>
+    <width>1017</width>
+    <height>739</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Client - View Reservation</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#centralwidget{
+
+background-image:url(ui/res/bg.gif);
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>0</y>
-      <width>551</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Lucida Calligraphy</family>
-      <pointsize>27</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>The New View Hotel</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>280</y>
+      <x>300</x>
+      <y>380</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -59,8 +41,8 @@
    <widget class="QLabel" name="roomnumberid_lbl">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>270</y>
+      <x>570</x>
+      <y>370</y>
       <width>91</width>
       <height>51</height>
      </rect>
@@ -77,8 +59,8 @@
    <widget class="QLabel" name="customerid_lbl">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>310</y>
+      <x>650</x>
+      <y>410</y>
       <width>91</width>
       <height>51</height>
      </rect>
@@ -92,34 +74,11 @@
      <string>XXXX</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>100</y>
-      <width>341</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>24</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>View Reservation</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QPushButton" name="ok_btn">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>470</y>
+      <x>460</x>
+      <y>570</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -129,6 +88,15 @@
       <pointsize>15</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#ok_btn{
+background-color:qconicalgradient(cx:0.915, cy:0.909091, angle:359.6, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));
+border: 1px solid gold;
+border-radius: 20px 20px;
+}
+
+</string>
+    </property>
     <property name="text">
      <string>Ok</string>
     </property>
@@ -136,20 +104,21 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>150</y>
+      <x>230</x>
+      <y>250</y>
       <width>541</width>
       <height>81</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Mongolian Baiti</family>
       <pointsize>24</pointsize>
-      <italic>true</italic>
+      <italic>false</italic>
      </font>
     </property>
     <property name="text">
-     <string>BOOKING CONFIRMED</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:26pt; font-weight:600;&quot;&gt;BOOKING CONFIRMED&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -158,8 +127,8 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>320</y>
+      <x>300</x>
+      <y>420</y>
       <width>351</width>
       <height>31</height>
      </rect>
@@ -176,8 +145,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>200</y>
+      <x>250</x>
+      <y>300</y>
       <width>541</width>
       <height>81</height>
      </rect>
@@ -196,8 +165,8 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>370</y>
+      <x>330</x>
+      <y>470</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -214,8 +183,8 @@
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>410</y>
+      <x>330</x>
+      <y>510</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -232,8 +201,8 @@
    <widget class="QLabel" name="checkin_lbl">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>360</y>
+      <x>470</x>
+      <y>460</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -250,8 +219,8 @@
    <widget class="QLabel" name="checkout_lbl">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>400</y>
+      <x>470</x>
+      <y>500</y>
       <width>161</width>
       <height>51</height>
      </rect>
@@ -265,8 +234,122 @@
      <string>XXXX</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_18">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>140</y>
+      <width>481</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;ui/res/logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>70</y>
+      <width>841</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 229, 172,70%);
+border: 1px solid gold;
+border-radius: 20px 20px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>140</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>137</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777212</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(0, 0, 0)</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>70</y>
+      <width>531</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Mongolian Baiti</family>
+      <pointsize>40</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#eebc1d;&quot;&gt;        VIEW &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#eebc1d;&quot;&gt;RESERVATION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <zorder>label_18</zorder>
+   <zorder>label_17</zorder>
+   <zorder>checkin_lbl</zorder>
+   <zorder>roomnumberid_lbl</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_4</zorder>
+   <zorder>customerid_lbl</zorder>
+   <zorder>label</zorder>
+   <zorder>label_5</zorder>
+   <zorder>ok_btn</zorder>
+   <zorder>checkout_lbl</zorder>
+   <zorder>label_6</zorder>
+   <zorder>label_7</zorder>
+   <zorder>line</zorder>
+   <zorder>line_2</zorder>
+   <zorder>label_14</zorder>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="Logo.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -6,31 +6,39 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>526</height>
+    <width>1017</width>
+    <height>739</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Checkout</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#CheckoutDialog{
+
+background-image:url(ui/res/bg.gif);
+
+}</string>
+  </property>
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>20</y>
-     <width>241</width>
-     <height>31</height>
+     <x>360</x>
+     <y>90</y>
+     <width>311</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
+     <family>Mongolian Baiti</family>
+     <pointsize>40</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
    <property name="text">
-    <string>CHECK OUT</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#EEBC1D;&quot;&gt;CHECKOUT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -39,15 +47,17 @@
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>170</y>
+     <x>320</x>
+     <y>290</y>
      <width>191</width>
      <height>151</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="title">
@@ -62,6 +72,11 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="text">
      <string>Credit Card</string>
     </property>
@@ -74,6 +89,11 @@
       <width>111</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Paymaya</string>
@@ -88,6 +108,11 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="text">
      <string>G-Cash</string>
     </property>
@@ -96,15 +121,19 @@
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>60</y>
+     <x>320</x>
+     <y>180</y>
      <width>411</width>
      <height>101</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>15</pointsize>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+     <underline>false</underline>
     </font>
    </property>
    <property name="title">
@@ -118,6 +147,11 @@
       <width>101</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Rate</string>
@@ -151,15 +185,17 @@
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>170</y>
+     <x>530</x>
+     <y>290</y>
      <width>201</width>
      <height>151</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="title">
@@ -174,6 +210,11 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="text">
      <string>Downpayment</string>
     </property>
@@ -187,6 +228,11 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="text">
      <string>Fully Paid</string>
     </property>
@@ -195,8 +241,8 @@
   <widget class="QGroupBox" name="groupBox_5">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>330</y>
+     <x>320</x>
+     <y>450</y>
      <width>411</width>
      <height>91</height>
     </rect>
@@ -204,6 +250,8 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="title">
@@ -217,6 +265,11 @@
       <width>101</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Amount</string>
@@ -250,8 +303,8 @@
   <widget class="QPushButton" name="reserve_btn">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>440</y>
+     <x>370</x>
+     <y>560</y>
      <width>131</width>
      <height>51</height>
     </rect>
@@ -263,6 +316,13 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#reserve_btn{
+background-color:qconicalgradient(cx:0.915, cy:0.909091, angle:359.6, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));
+border: 1px solid gold;
+border-radius: 20px 20px;
+}</string>
+   </property>
    <property name="text">
     <string>Reserve</string>
    </property>
@@ -270,15 +330,15 @@
   <widget class="QLabel" name="label_14">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>490</y>
+     <x>420</x>
+     <y>610</y>
      <width>81</width>
      <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>13</pointsize>
+     <pointsize>15</pointsize>
     </font>
    </property>
    <property name="text">
@@ -288,8 +348,8 @@
   <widget class="QLabel" name="status_lbl">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>500</y>
+     <x>480</x>
+     <y>620</y>
      <width>241</width>
      <height>21</height>
     </rect>
@@ -306,8 +366,8 @@
   <widget class="QPushButton" name="exit_btn">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>440</y>
+     <x>530</x>
+     <y>560</y>
      <width>131</width>
      <height>51</height>
     </rect>
@@ -319,11 +379,99 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#exit_btn{
+background-color:qconicalgradient(cx:0.915, cy:0.909091, angle:359.6, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));
+border: 1px solid gold;
+border-radius: 20px 20px;
+}</string>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>113</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line_2">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>110</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>16777212</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(0, 0, 0)</string>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_17">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>83</y>
+     <width>841</width>
+     <height>611</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(241, 229, 172,70%);
+border: 1px solid gold;
+border-radius: 20px 20px;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_18">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>160</y>
+     <width>481</width>
+     <height>441</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;ui/res/logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <zorder>label_18</zorder>
+  <zorder>label_17</zorder>
+  <zorder>label_13</zorder>
+  <zorder>groupBox_2</zorder>
+  <zorder>groupBox_4</zorder>
+  <zorder>groupBox_3</zorder>
+  <zorder>groupBox_5</zorder>
+  <zorder>reserve_btn</zorder>
+  <zorder>label_14</zorder>
+  <zorder>status_lbl</zorder>
+  <zorder>exit_btn</zorder>
+  <zorder>line</zorder>
+  <zorder>line_2</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="Logo.qrc"/>
+ </resources>
  <connections/>
 </ui>

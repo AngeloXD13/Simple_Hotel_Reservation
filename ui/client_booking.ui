@@ -6,19 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>561</height>
+    <width>1017</width>
+    <height>737</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Customer Booking</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralwidget{
+
+background-image:url(ui/res/bg.gif);
+
+}</string>
+   </property>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>60</y>
+      <x>150</x>
+      <y>150</y>
       <width>361</width>
       <height>221</height>
      </rect>
@@ -282,8 +292,8 @@
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>60</y>
+      <x>540</x>
+      <y>150</y>
       <width>331</width>
       <height>291</height>
      </rect>
@@ -551,8 +561,8 @@
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>350</y>
+      <x>540</x>
+      <y>440</y>
       <width>331</width>
       <height>101</height>
      </rect>
@@ -568,14 +578,14 @@
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>40</x>
        <y>30</y>
        <width>101</width>
        <height>51</height>
       </rect>
      </property>
      <property name="text">
-      <string>Amount</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Amount&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="totalamount_tb">
@@ -606,8 +616,8 @@
    <widget class="QPushButton" name="checkout_btn">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>480</y>
+      <x>560</x>
+      <y>590</y>
       <width>131</width>
       <height>61</height>
      </rect>
@@ -619,6 +629,13 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#checkout_btn{
+background-color:qconicalgradient(cx:0.915, cy:0.909091, angle:359.6, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));
+border: 1px solid gold;
+border-radius: 20px 20px;
+}</string>
+    </property>
     <property name="text">
      <string>Checkout</string>
     </property>
@@ -626,8 +643,8 @@
    <widget class="QPushButton" name="exit_btn">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>480</y>
+      <x>710</x>
+      <y>590</y>
       <width>131</width>
       <height>61</height>
      </rect>
@@ -639,6 +656,15 @@
       <bold>false</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#exit_btn{
+background-color:qconicalgradient(cx:0.915, cy:0.909091, angle:359.6, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));
+border: 1px solid gold;
+border-radius: 20px 20px;
+}
+
+</string>
+    </property>
     <property name="text">
      <string>Exit</string>
     </property>
@@ -646,21 +672,25 @@
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>20</y>
-      <width>181</width>
-      <height>31</height>
+      <x>390</x>
+      <y>90</y>
+      <width>251</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>24</pointsize>
+      <family>Mongolian Baiti</family>
+      <pointsize>40</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
-     <string>BOOKING</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#EEBC1D;&quot;&gt;BOOKING&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -669,8 +699,8 @@
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>520</y>
+      <x>170</x>
+      <y>610</y>
       <width>81</width>
       <height>41</height>
      </rect>
@@ -687,8 +717,8 @@
    <widget class="QLabel" name="status_lbl">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>530</y>
+      <x>230</x>
+      <y>620</y>
       <width>241</width>
       <height>21</height>
      </rect>
@@ -705,8 +735,8 @@
    <widget class="QGroupBox" name="groupBox_5">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>290</y>
+      <x>150</x>
+      <y>380</y>
       <width>161</width>
       <height>101</height>
      </rect>
@@ -789,8 +819,8 @@
    <widget class="QGroupBox" name="groupBox_6">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>400</y>
+      <x>150</x>
+      <y>490</y>
       <width>331</width>
       <height>101</height>
      </rect>
@@ -814,8 +844,90 @@
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>80</y>
+      <width>841</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 229, 172,70%);
+border: 1px solid gold;
+border-radius: 20px 20px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_18">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>150</y>
+      <width>481</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;ui/res/logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>110</y>
+      <width>231</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>107</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777212</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(0, 0, 0)</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <zorder>label_18</zorder>
+   <zorder>label_17</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>groupBox_3</zorder>
+   <zorder>groupBox_4</zorder>
+   <zorder>checkout_btn</zorder>
+   <zorder>exit_btn</zorder>
+   <zorder>label_13</zorder>
+   <zorder>label_14</zorder>
+   <zorder>status_lbl</zorder>
+   <zorder>groupBox_5</zorder>
+   <zorder>groupBox_6</zorder>
+   <zorder>line</zorder>
+   <zorder>line_2</zorder>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res/Logo.qrc"/>
+ </resources>
  <connections/>
 </ui>
