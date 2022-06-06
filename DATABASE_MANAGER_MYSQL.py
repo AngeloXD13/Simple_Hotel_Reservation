@@ -314,7 +314,7 @@ def insertReservationInfo(customerID, checkin_date, checkin_time, checkout_date,
              + str(familyroom) + "', '"
              + str(ameni_spa) + "', '"
              + str(ameni_petroom) + "', '"
-             + str(ameni_petroom) + "', '"
+             + str(ameni_breakfast) + "', '"
              + str(paymentmethod) + "', '"
              + str(amount) + "', '"
              + str(balance) + "', '"

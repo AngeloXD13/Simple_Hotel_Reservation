@@ -134,8 +134,8 @@ border-radius: 20px 20px;
    <widget class="QLabel" name="status_lbl">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>413</y>
+      <x>360</x>
+      <y>440</y>
       <width>321</width>
       <height>21</height>
      </rect>
